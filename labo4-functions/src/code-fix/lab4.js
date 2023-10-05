@@ -1,82 +1,100 @@
 // TODO: Fix the errors in the functions below!
 
 function addTask(taskList, newTask) {
-  return newTask;
+  taskList.push(newTask);
+  return taskList;
 }
 
 function deleteTask(taskList, index) {
-  return index;
+  taskList.splice(index, 1)
+  return taskList;
 }
 
 function editTask(taskList, index, editedTask) {
-  return editedTask;
+  taskList.splice(index, 1, editedTask)
+  return taskList;
 }
 
 function completeTask(taskList, index) {
-  return index;
+  taskList.at(index).completed = true;
+  return taskList;
 }
 
 function clearCompletedTasks(taskList) {
-  return taskList;
+  return taskList.filter((task)=> task.completed !== true);
 }
 
 function sortTasksByDate(taskList) {
-  return taskList;
+  return taskList.sort((taskA, taskB)=>{
+    return taskA.date < taskB.date ? -1 : 1
+  })
 }
 
 function filterTasksByKeyword(taskList, keyword) {
-  return taskList;
+  return taskList.filter((task)=> new RegExp(keyword, 'i').test(task))
 }
 
 function getCompletedTasks(taskList) {
-  return taskList;
+  return taskList.filter((task)=> task.completed === true);
 }
 
 function getIncompleteTasks(taskList) {
-  return taskList;
+  return taskList.filter((task)=> task.completed !== true);
 }
 
 function getTaskCount(taskList) {
-  return taskList;
+  return taskList.length
 }
 
 function getCompletedTaskCount(taskList) {
-  return taskList;
+  return taskList.filter((task)=> task.completed === true).length;
 }
 
 function getIncompleteTaskCount(taskList) {
-  return taskList;
+  return taskList.filter((task)=> task.completed !== true).length;
 }
 
 function removeCompletedTasks(taskList) {
-  return taskList;
+  return taskList.filter((task)=> task.completed !== true);
 }
 
 function markAllTasksAsCompleted(taskList) {
-  return taskList;
+  return taskList.map((task)=> {
+    task.completed = true;
+    return task
+  })
 }
 
 function markAllTasksAsIncomplete(taskList) {
-  return taskList;
-}
+  return taskList.map((task)=> {
+    task.completed = false;
+    return task
+  })}
 
 function addTaskToList(taskList, task) {
-  return task;
+  taskList.push({
+    task,
+    completed: false
+  });
+  return taskList
 }
 
 function deleteTaskFromList(taskList, index) {
-  return index;
+  taskList.splice(index, 1)
+  return taskList;
 }
 
 function editTaskInList(taskList, index, newTask) {
-  return newTask;
+  taskList.at(index).task = newTask
+  return taskList;
 }
 
 function moveTaskUp(taskList, index) {
   if (index === 0) {
     return taskList;
   }
-  // const newIndex = index - 1;
+  const old = taskList.splice(index - 1,1)[0]
+  taskList.splice(index, 0, old)
   return taskList;
 }
 
@@ -84,7 +102,8 @@ function moveTaskDown(taskList, index) {
   if (index === taskList.length - 1) {
     return taskList;
   }
-  // const newIndex = index + 1;
+  const old = taskList.splice(index + 1,1)[0]
+  taskList.splice(index, 0, old)
   return taskList;
 }
 
